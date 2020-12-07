@@ -53,3 +53,14 @@ empCheck = Math.floor(Math.random() * 10) % 2;
 empHrs = getDailyWage(empCheck);
 let empWage = empHrs * WORKING_RATE_PER_HOUR;
 console.log("UC3 - Employee Salary : " + empWage);
+
+//UC4 -> Compute EMployee Wage for a month assuming 20 days in a month
+const NUM_WORKING_DAYS = 20;
+empHrs = 0;
+
+for (let day = 0 ; day < NUM_WORKING_DAYS ; day++){
+    empCheck = Math.floor(Math.random() * 10) % 2;
+    empHrs += getDailyWage(empCheck);
+}
+empWage = empHrs*WORKING_RATE_PER_HOUR;
+console.log("UC4 - Employee Wage for a month : " + empWage)
