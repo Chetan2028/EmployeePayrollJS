@@ -64,3 +64,16 @@ for (let day = 0 ; day < NUM_WORKING_DAYS ; day++){
 }
 empWage = empHrs*WORKING_RATE_PER_HOUR;
 console.log("UC4 - Employee Wage for a month : " + empWage)
+
+//UC5 --> Compute employee wage till max working hours or max working days is reached
+const MAX_WORKING_HRS = 160;
+const MAX_WORKING_DAYS = 20;
+let totalEmpHrs = 0;
+let totalWorkingDays = 0;
+while(totalEmpHrs <= MAX_WORKING_HRS && totalWorkingDays <= MAX_WORKING_DAYS){
+    totalWorkingDays++;
+    empCheck = Math.floor(Math.random() * 10) % 2;
+    totalEmpHrs += getDailyWage(empCheck);
+}
+empWage = totalEmpHrs * WORKING_RATE_PER_HOUR;
+console.log("UC5 - Employee Wage till max working hrs or max working days is reached: " + empWage);
