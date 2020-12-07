@@ -49,7 +49,7 @@ function getDailyWage(empCheck){
 }
 
 empHrs = 0;
-empCheck = Math.floor(Math.random() * 10) % 2;
+empCheck = Math.floor(Math.random() * 10) % 3;
 empHrs = getDailyWage(empCheck);
 let empWage = empHrs * WORKING_RATE_PER_HOUR;
 console.log("UC3 - Employee Salary : " + empWage);
@@ -59,7 +59,7 @@ const NUM_WORKING_DAYS = 20;
 empHrs = 0;
 
 for (let day = 0 ; day < NUM_WORKING_DAYS ; day++){
-    empCheck = Math.floor(Math.random() * 10) % 2;
+    empCheck = Math.floor(Math.random() * 10) % 3;
     empHrs += getDailyWage(empCheck);
 }
 empWage = empHrs*WORKING_RATE_PER_HOUR;
@@ -72,7 +72,7 @@ let totalEmpHrs = 0;
 let totalWorkingDays = 0;
 while(totalEmpHrs <= MAX_WORKING_HRS && totalWorkingDays <= MAX_WORKING_DAYS){
     totalWorkingDays++;
-    empCheck = Math.floor(Math.random() * 10) % 2;
+    empCheck = Math.floor(Math.random() * 10) % 3;
     totalEmpHrs += getDailyWage(empCheck);
 }
 empWage = totalEmpHrs * WORKING_RATE_PER_HOUR;
@@ -89,7 +89,7 @@ let empWageArray = new Array();
 
 while(totalEmpHrs <= MAX_WORKING_HRS && totalWorkingDays < MAX_WORKING_DAYS){
     totalWorkingDays++;
-    empCheck = Math.floor(Math.random() * 10) % 2;
+    empCheck = Math.floor(Math.random() * 10) % 3;
     empHrs = getDailyWage(empCheck);
     let dailyWage = calculateDailyWage(empHrs);
     empWageArray.push(dailyWage);
@@ -98,3 +98,73 @@ while(totalEmpHrs <= MAX_WORKING_HRS && totalWorkingDays < MAX_WORKING_DAYS){
 
 empWage = calculateDailyWage(totalEmpHrs);
 console.log("UC 6 - Total Days : " + totalWorkingDays + " Total Hours : " + totalEmpHrs + " EMp Wage : " + empWage);
+
+//UC7 --> Array Helper Functions
+
+//UC 7-A - Calculate Total Wage using Array forEach Traversal or reduce method
+let totalEmpWage = 0;
+function sum(dailyWage){
+    totalEmpWage += dailyWage;
+}
+
+empWageArray.forEach(sum);
+console.log("UC-7A -  Total Days : " + totalWorkingDays + " Total Hrs : " + totalEmpHrs + " Emp Wage : " + totalEmpWage);
+
+function totalWages(totalWage , dailyWage){
+    return totalWage+dailyWage;
+}
+
+console.log("UC-7A - Total Employee Wage Using Reduce Method : " + empWageArray.reduce(totalWages,0));
+
+//UC 7B -> Show the day along with daily wage using Array map helper functions
+let dailyCounter = 0;
+function mapDayWithWage(dailyWage){
+    dailyCounter++;
+    return dailyCounter + " = " + dailyWage;
+}
+
+let mapDayWithWageArray = empWageArray.map(mapDayWithWage);
+console.log("UC7B - Daily Wage Map");
+console.log(mapDayWithWageArray);
+
+//UC 7C -> Show Days when Full Time wage of 160 were earned
+function fullTimeWage(dailyWage){
+    return dailyWage.includes("160");
+}
+
+let fullDayWageArr = mapDayWithWageArray.filter(fullTimeWage);
+console.log("UC-7C -> Daily Wage filter when full time earned");
+console.log(fullDayWageArr);
+
+//UC - 7D -> Find the first occurence when full time wage was earned using find function
+function findFullTimeWage(dailyWage){
+    return dailyWage.includes("160");
+}
+
+console.log("UC - 7D -> First Time Full time Wage was earned on Day : " + mapDayWithWageArray.find(findFullTimeWage));
+
+//UC - 7E -> Check if every element of full time wage is truely holding full time wage
+function isAllFullTimeWage(dailyWage){
+    return dailyWage.includes("160");
+}
+
+console.log("UC - 7E ->Check all element have full time wages : " + fullDayWageArr.every(isAllFullTimeWage));
+
+// UC - 7F -> Check if there is any part time wage
+function isAnyPartTimeWage(dailyWage){
+    return dailyWage.includes("80");
+}
+
+console.log("UC - 7F -> Check if any part time wage : " + mapDayWithWageArray.some(isAnyPartTimeWage));
+
+//UC - 7G -> Find the number of days the employee have worked
+function totalDaysWorked(numOfDays , dailyWage){
+    if(dailyWage > 0) return numOfDays +1;
+    return numOfDays;
+}
+
+console.log("UC - 7G -> Number of Days Employee Worked : " + empWageArray.reduce(totalDaysWorked,0));
+
+
+
+
