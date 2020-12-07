@@ -77,3 +77,24 @@ while(totalEmpHrs <= MAX_WORKING_HRS && totalWorkingDays <= MAX_WORKING_DAYS){
 }
 empWage = totalEmpHrs * WORKING_RATE_PER_HOUR;
 console.log("UC5 - Employee Wage till max working hrs or max working days is reached: " + empWage);
+
+//UC6 --> Calculate Daily Wage in Array
+function calculateDailyWage(empHrs){
+    return empHrs * WORKING_RATE_PER_HOUR;
+}
+
+totalEmpHrs = 0;
+totalWorkingDays = 0;
+let empWageArray = new Array();
+
+while(totalEmpHrs <= MAX_WORKING_HRS && totalWorkingDays < MAX_WORKING_DAYS){
+    totalWorkingDays++;
+    empCheck = Math.floor(Math.random() * 10) % 2;
+    empHrs = getDailyWage(empCheck);
+    let dailyWage = calculateDailyWage(empHrs);
+    empWageArray.push(dailyWage);
+    totalEmpHrs += empHrs;
+}
+
+empWage = calculateDailyWage(totalEmpHrs);
+console.log("UC 6 - Total Days : " + totalWorkingDays + " Total Hours : " + totalEmpHrs + " EMp Wage : " + empWage);
