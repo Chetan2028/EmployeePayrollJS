@@ -5,6 +5,9 @@ class EmployeePayrollData{
     salary;
     gender;
     startDate;
+    zip;
+    email;
+
 
     /*//constructor
     constructor(id,name,salary){
@@ -20,6 +23,8 @@ class EmployeePayrollData{
         this.salary = params[2];
         this.gender = params[3];
         this.startDate = params[4];
+        this.zip = params[5];
+        this.email = params[6];
     }
 
     //getter and setter method
@@ -41,8 +46,8 @@ class EmployeePayrollData{
     }
 
     set setId(id) {
-        let nameRegex = RegExp("^[1-9]+$");
-        if(nameRegex.test(id)) {
+        let idRegex = RegExp("^[1-9]+$");
+        if(idRegex.test(id)) {
             this._id = id;
         }
         else {
@@ -53,8 +58,8 @@ class EmployeePayrollData{
     get getGender() { return this._gender;}
 
     set setGender(gender1) {
-        let nameRegex = RegExp("^[F|M]$");
-        if(nameRegex.test(gender1.toUpperCase())) {
+        let genderRegex = RegExp("^[F|M]$");
+        if(genderRegex.test(gender1.toUpperCase())) {
             this._gender = gender1;
         }
         else {
@@ -65,8 +70,8 @@ class EmployeePayrollData{
     get getSalary() { return _this.salary;}
 
     set setSalary(salary) {
-        let nameRegex = RegExp('^[1-9]{1,}$');
-        if(nameRegex.test(salary)) {
+        let salaryRegex = RegExp('^[1-9]{1,}$');
+        if(salaryRegex.test(salary)) {
             this._salary = salary;
         }
         else {
@@ -85,12 +90,37 @@ class EmployeePayrollData{
             throw 'Invalid Date';
         }
     }
+
+    get getZip() { return this._zip;}
+
+    set setZip(zip) {
+        let zipRegex = RegExp('^[1-9]{1}[0-9]{2}[ ]?[0-9]{3}$');
+        if(zipRegex.test(zip)) {
+            this._zip = zip;
+        }
+        else {
+            throw 'Invalid Zip';
+        }
+    }
+
+    get getEmail() { return this._email;}
+
+    set setEmail(email) {
+        let emailRegex = RegExp('^[a-z]{1}[a-z0-9]{2,}([._+-]?[a-z0-9]+)?[@]{1}[a-z1-9]+[.]{1}(co|net|com|gov)([.]{1}[a-z]{2,3})?$');
+        if(emailRegex.test(email)) {
+            this._email = email;
+        }
+        else {
+            throw 'Invalid Email';
+        }
+    }
+
     //method
     toString() {
         const options = {year : 'numeric' , month : 'long' , day : 'numeric'};
         const empDate = this.startDate == undefined ? "undefined" : this.startDate.toLocaleDateString("en-US",options);
         return "id = " + this.id + " name = " + this.name + " salary " + this.salary + " gender : " + this.gender 
-        + " startDate : " + empDate;
+        + " startDate : " + empDate + " Zip : " + this.zip + " Email : " + this.email;
     }
 }
 
@@ -119,4 +149,14 @@ catch(e) {
 let newEmployeePayrollData = new EmployeePayrollData(2,"Terrisa",30000,"F",new Date());
 console.log(newEmployeePayrollData.toString());
 
+let newEmployeePayrollData1 = new EmployeePayrollData(3,"Dwayne",412563,'M',new Date(),741258,'abc@yahoo.com');
+console.log(newEmployeePayrollData1.toString());
 
+try{
+    newEmployeePayrollData1.setZip = '400088';
+    newEmployeePayrollData1.setEmail = 'abc123@.com';
+    console.log(newEmployeePayrollData1.toString());
+}
+catch(e){
+    console.error(e);
+}
