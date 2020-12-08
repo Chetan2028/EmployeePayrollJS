@@ -36,6 +36,55 @@ class EmployeePayrollData{
             throw "Name is Incorrect!";
     }
 
+    get getId(){
+        return this._id;
+    }
+
+    set setId(id) {
+        let nameRegex = RegExp("^[1-9]+$");
+        if(nameRegex.test(id)) {
+            this._id = id;
+        }
+        else {
+            throw "Invalid Id";
+        }
+    }
+
+    get getGender() { return this._gender;}
+
+    set setGender(gender1) {
+        let nameRegex = RegExp("^[F|M]$");
+        if(nameRegex.test(gender1.toUpperCase())) {
+            this._gender = gender1;
+        }
+        else {
+            throw 'Invalid Gender';
+        }
+    }
+
+    get getSalary() { return _this.salary;}
+
+    set setSalary(salary) {
+        let nameRegex = RegExp('^[1-9]{1,}$');
+        if(nameRegex.test(salary)) {
+            this._salary = salary;
+        }
+        else {
+            throw 'Invalid Salary';
+        }
+    }
+
+    get getStartDate() { return this._startDate;}
+
+    set setStartDate(startDate) {
+        let currentDate = new Date();
+        if(currentDate - startDate >= 0) {
+            this._startDate = startDate;
+        }
+        else {
+            throw 'Invalid Date';
+        }
+    }
     //method
     toString() {
         const options = {year : 'numeric' , month : 'long' , day : 'numeric'};
@@ -48,13 +97,24 @@ class EmployeePayrollData{
 let employeePayrollData = new EmployeePayrollData(1,"Mark",50000);
 console.log(employeePayrollData.toString());
 try{
-    employeePayrollData.setName = "john";
+    employeePayrollData.name = "John";
     console.log(employeePayrollData.toString());
 }
 catch(e){
     console.error(e);
 }
 
+try{
+    //employeePayrollData.setId = 0;
+    //employeePayrollData.setName = 'maxwell';
+    //employeePayrollData.setGender = 'NA';
+    employeePayrollData.setSalary = -2365;
+    employeePayrollData.setStartDate = new Date();
+    console.log(employeePayrollData);
+}
+catch(e) {
+    console.error(e);
+}
 
 let newEmployeePayrollData = new EmployeePayrollData(2,"Terrisa",30000,"F",new Date());
 console.log(newEmployeePayrollData.toString());
